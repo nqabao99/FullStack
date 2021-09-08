@@ -1,5 +1,7 @@
+import { COOKIE_NAME } from "../constants";
+import { Context } from "../types/Context";
 import argon2 from "argon2";
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Ctx, Mutation, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 import { RegisterInput } from "../types/RegisterInput";
 import { UserMutationResponse } from "../types/UserMutationResponse";
@@ -10,7 +12,8 @@ import { LoginInput } from "../types/LoginInput";
 export class UserResolver {
   @Mutation((_return) => UserMutationResponse)
   async register(
-    @Arg("registerInput") registerInput: RegisterInput
+    @Arg("registerInput") registerInput: RegisterInput,
+    @Ctx() { req }: Context
   ): Promise<UserMutationResponse> {
     const validareRegisterInputError = validateRegisterInput(registerInput);
 
@@ -47,12 +50,14 @@ export class UserResolver {
         password: hashedPassword,
         email,
       });
+      await User.save(newUser);
+      req.session.userId = newUser.id;
 
       return {
         code: 200,
         success: true,
         message: "User registrastion successful",
-        user: await User.save(newUser),
+        user: newUser,
       };
     } catch (error) {
       console.log(error);
@@ -66,7 +71,8 @@ export class UserResolver {
 
   @Mutation((_return) => UserMutationResponse)
   async login(
-    @Arg("loginInput") { usernameOrEmail, password }: LoginInput
+    @Arg("loginInput") { usernameOrEmail, password }: LoginInput,
+    @Ctx() { req }: Context
   ): Promise<UserMutationResponse> {
     try {
       const existringUser = await User.findOne(
@@ -101,6 +107,9 @@ export class UserResolver {
           error: [{ field: "password", message: "Wrong passwrod" }],
         };
 
+      // Create session and return cookie
+      req.session.userId = existringUser.id;
+
       return {
         code: 200,
         success: true,
@@ -115,5 +124,18 @@ export class UserResolver {
         message: `Internal server error ${error.message}`,
       };
     }
+  }
+
+  @Mutation((_return) => Boolean)
+  logout(@Ctx() { req, res }: Context): Promise<boolean> {
+    return new Promise((resolve, _reject) => {
+      res.clearCookie(COOKIE_NAME);
+      req.session.destroy((error) => {
+        if (error) {
+          console.log("DESTROYING SESSION ERROR", error);
+          resolve(false);
+        }
+      });
+    });
   }
 }
