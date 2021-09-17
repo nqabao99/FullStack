@@ -3,23 +3,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const post_1 = require("./resolvers/post");
-const constants_1 = require("./constants");
+require("dotenv").config();
+const apollo_server_core_1 = require("apollo-server-core");
 const apollo_server_express_1 = require("apollo-server-express");
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
+const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const express_session_1 = __importDefault(require("express-session"));
 const mongoose_1 = __importDefault(require("mongoose"));
 require("reflect-metadata");
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
+const constants_1 = require("./constants");
 const Post_1 = require("./entities/Post");
 const User_1 = require("./entities/User");
 const hello_1 = require("./resolvers/hello");
+const post_1 = require("./resolvers/post");
 const user_1 = require("./resolvers/user");
-require("dotenv").config();
 const main = async () => {
-    await (0, typeorm_1.createConnection)({
+    await typeorm_1.createConnection({
         type: "postgres",
         database: "reddit",
         username: process.env.DB_USERNAME_DEV,
@@ -28,16 +30,15 @@ const main = async () => {
         synchronize: true,
         entities: [User_1.User, Post_1.Post],
     });
-    const app = (0, express_1.default)();
+    const app = express_1.default();
+    app.use(cors_1.default({
+        origin: "http://localhost:3000",
+        credentials: true,
+    }));
     const mongoUrl = `mongodb+srv://${process.env.SESSION_DB_USERNAME_DEV_PROD}:${process.env.SESSION_DB_PASSWORD_DEV_PROD}@reddit.sxiul.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-    await mongoose_1.default.connect(mongoUrl, {
-        useCreateIndex: true,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: true,
-    });
-    console.log("MongooDB connect");
-    app.use((0, express_session_1.default)({
+    await mongoose_1.default.connect(mongoUrl, {});
+    console.log("mongodb connected");
+    app.use(express_session_1.default({
         name: constants_1.COOKIE_NAME,
         store: connect_mongo_1.default.create({ mongoUrl }),
         cookie: {
@@ -51,16 +52,17 @@ const main = async () => {
         resave: false,
     }));
     const apolloServer = new apollo_server_express_1.ApolloServer({
-        schema: await (0, type_graphql_1.buildSchema)({
+        schema: await type_graphql_1.buildSchema({
             resolvers: [hello_1.HelloResolver, user_1.UserResolver, post_1.PostResolver],
             validate: false,
         }),
+        plugins: [apollo_server_core_1.ApolloServerPluginLandingPageGraphQLPlayground()],
         context: ({ req, res }) => ({ req, res }),
     });
     await apolloServer.start();
     apolloServer.applyMiddleware({ app, cors: false });
-    const PORT = process.env.PORT || 4000;
-    app.listen(PORT, () => console.log(`server started on port ${PORT} . GraphQl server started on locahost:${PORT}${apolloServer.graphqlPath}`));
+    const PORT = process.env.POST || 4000;
+    app.listen(PORT, () => console.log(`server started on port ${PORT}. GraphQL server started on localhost ${PORT}${apolloServer.graphqlPath}`));
 };
 main().catch((error) => console.log(error));
 //# sourceMappingURL=index.js.map

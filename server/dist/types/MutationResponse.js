@@ -14,19 +14,19 @@ const type_graphql_1 = require("type-graphql");
 let IMutationResponse = class IMutationResponse {
 };
 __decorate([
-    (0, type_graphql_1.Field)(),
+    type_graphql_1.Field(),
     __metadata("design:type", Number)
 ], IMutationResponse.prototype, "code", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    type_graphql_1.Field(),
     __metadata("design:type", Boolean)
 ], IMutationResponse.prototype, "success", void 0);
 __decorate([
-    (0, type_graphql_1.Field)({ nullable: true }),
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", String)
 ], IMutationResponse.prototype, "message", void 0);
 IMutationResponse = __decorate([
-    (0, type_graphql_1.InterfaceType)()
+    type_graphql_1.InterfaceType()
 ], IMutationResponse);
 exports.IMutationResponse = IMutationResponse;
 //# sourceMappingURL=MutationResponse.js.map

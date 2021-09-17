@@ -1,6 +1,6 @@
-import { Context } from "../types/Context";
-import { MiddlewareFn } from "type-graphql";
-import { AuthenticationError } from "apollo-server-errors";
+import { Context } from '../types/Context';
+import { MiddlewareFn } from 'type-graphql';
+import { AuthenticationError } from 'apollo-server-errors';
 
 export const checkAuth: MiddlewareFn<Context> = (
   { context: { req } },
@@ -8,8 +8,7 @@ export const checkAuth: MiddlewareFn<Context> = (
 ) => {
   if (!req.session.userId)
     throw new AuthenticationError(
-      "Not authenticated to perform GrapQL openrations"
+      'Not authenticated to perform GraphQL operations'
     );
-
   return next();
 };

@@ -17,18 +17,18 @@ const type_graphql_1 = require("type-graphql");
 let HelloResolver = class HelloResolver {
     hello({ req }) {
         console.log(req.session.userId);
-        return "hello baor";
+        return 'hello world';
     }
 };
 __decorate([
-    (0, type_graphql_1.Query)((_returns) => String),
-    __param(0, (0, type_graphql_1.Ctx)()),
+    type_graphql_1.Query((_returns) => String),
+    __param(0, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], HelloResolver.prototype, "hello", null);
 HelloResolver = __decorate([
-    (0, type_graphql_1.Resolver)()
+    type_graphql_1.Resolver()
 ], HelloResolver);
 exports.HelloResolver = HelloResolver;
 //# sourceMappingURL=hello.js.map

@@ -1,0 +1,17 @@
+query Posts($limit: Int!, $cursor: String) {
+  posts(limit: $limit, cursor: $cursor) {
+    totalCount
+    cursor
+    hasMore
+    paginatePosts {
+      id
+      title
+      text
+      textSnippet
+      createdAt
+      user {
+        username
+      }
+    }
+  }
+}

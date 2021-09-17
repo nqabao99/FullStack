@@ -12,36 +12,47 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Post = void 0;
 const type_graphql_1 = require("type-graphql");
 const typeorm_1 = require("typeorm");
+const User_1 = require("./User");
 let Post = class Post extends typeorm_1.BaseEntity {
 };
 __decorate([
-    (0, type_graphql_1.Field)((_type) => type_graphql_1.ID),
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    type_graphql_1.Field((_type) => type_graphql_1.ID),
+    typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
 ], Post.prototype, "id", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
+    type_graphql_1.Field(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], Post.prototype, "title", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.Column)(),
+    type_graphql_1.Field(),
+    typeorm_1.Column(),
+    __metadata("design:type", Number)
+], Post.prototype, "userId", void 0);
+__decorate([
+    type_graphql_1.Field((_type) => User_1.User),
+    typeorm_1.ManyToOne(() => User_1.User, (user) => user.posts),
+    __metadata("design:type", User_1.User)
+], Post.prototype, "user", void 0);
+__decorate([
+    type_graphql_1.Field(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], Post.prototype, "text", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.CreateDateColumn)(),
+    type_graphql_1.Field(),
+    typeorm_1.CreateDateColumn({ type: "timestamptz" }),
     __metadata("design:type", Date)
-], Post.prototype, "createAt", void 0);
+], Post.prototype, "createdAt", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
-    (0, typeorm_1.UpdateDateColumn)(),
+    type_graphql_1.Field(),
+    typeorm_1.UpdateDateColumn({ type: "timestamptz" }),
     __metadata("design:type", Date)
-], Post.prototype, "updateAt", void 0);
+], Post.prototype, "updatedAt", void 0);
 Post = __decorate([
-    (0, type_graphql_1.ObjectType)(),
-    (0, typeorm_1.Entity)()
+    type_graphql_1.ObjectType(),
+    typeorm_1.Entity()
 ], Post);
 exports.Post = Post;
 //# sourceMappingURL=Post.js.map

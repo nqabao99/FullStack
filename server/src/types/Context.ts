@@ -1,5 +1,5 @@
-import { Session, SessionData } from "express-session";
 import { Request, Response } from "express";
+import { Session, SessionData } from "express-session";
 
 export type Context = {
   req: Request & {

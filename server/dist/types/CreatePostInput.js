@@ -14,15 +14,15 @@ const type_graphql_1 = require("type-graphql");
 let CreatePostInput = class CreatePostInput {
 };
 __decorate([
-    (0, type_graphql_1.Field)(),
+    type_graphql_1.Field(),
     __metadata("design:type", String)
 ], CreatePostInput.prototype, "title", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    type_graphql_1.Field(),
     __metadata("design:type", String)
 ], CreatePostInput.prototype, "text", void 0);
 CreatePostInput = __decorate([
-    (0, type_graphql_1.InputType)()
+    type_graphql_1.InputType()
 ], CreatePostInput);
 exports.CreatePostInput = CreatePostInput;
 //# sourceMappingURL=CreatePostInput.js.map

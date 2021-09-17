@@ -1,10 +1,12 @@
-import { Context } from "../types/Context";
-import { Ctx, Query, Resolver } from "type-graphql";
-@Resolver()
+import { Ctx, Query, Resolver } from 'type-graphql';
+import { Context } from 'vm';
+
+@Resolver() //đánh dấu là 1 typegraphql  resolver
 export class HelloResolver {
-  @Query((_returns) => String)
+  @Query((_returns) => String) //String of typegraphql
   hello(@Ctx() { req }: Context) {
     console.log(req.session.userId);
-    return "hello baor";
+
+    return 'hello world';
   }
 }

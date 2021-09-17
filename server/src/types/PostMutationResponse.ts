@@ -1,7 +1,7 @@
-import { Field, ObjectType } from "type-graphql";
-import { Post } from "../entities/Post";
-import { FieldError } from "./FieldError";
-import { IMutationResponse } from "./MutationResponse";
+import { Field, ObjectType } from 'type-graphql';
+import { Post } from '../entities/Post';
+import { FieldError } from './FieldError';
+import { IMutationResponse } from './MutationResponse';
 
 @ObjectType({ implements: IMutationResponse })
 export class PostMutationResponse implements IMutationResponse {
@@ -13,5 +13,5 @@ export class PostMutationResponse implements IMutationResponse {
   post?: Post;
 
   @Field((_type) => [FieldError], { nullable: true })
-  error?: FieldError[];
+  errors?: FieldError[];
 }

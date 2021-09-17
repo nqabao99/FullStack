@@ -17,15 +17,15 @@ const MutationResponse_1 = require("./MutationResponse");
 let PostMutationResponse = class PostMutationResponse {
 };
 __decorate([
-    (0, type_graphql_1.Field)({ nullable: true }),
+    type_graphql_1.Field({ nullable: true }),
     __metadata("design:type", Post_1.Post)
 ], PostMutationResponse.prototype, "post", void 0);
 __decorate([
-    (0, type_graphql_1.Field)((_type) => [FieldError_1.FieldError], { nullable: true }),
+    type_graphql_1.Field((_type) => [FieldError_1.FieldError], { nullable: true }),
     __metadata("design:type", Array)
-], PostMutationResponse.prototype, "error", void 0);
+], PostMutationResponse.prototype, "errors", void 0);
 PostMutationResponse = __decorate([
-    (0, type_graphql_1.ObjectType)({ implements: MutationResponse_1.IMutationResponse })
+    type_graphql_1.ObjectType({ implements: MutationResponse_1.IMutationResponse })
 ], PostMutationResponse);
 exports.PostMutationResponse = PostMutationResponse;
 //# sourceMappingURL=PostMutationResponse.js.map

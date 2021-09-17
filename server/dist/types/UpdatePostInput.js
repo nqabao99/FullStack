@@ -14,19 +14,19 @@ const type_graphql_1 = require("type-graphql");
 let UpdatePostInput = class UpdatePostInput {
 };
 __decorate([
-    (0, type_graphql_1.Field)((_type) => type_graphql_1.ID),
+    type_graphql_1.Field((_type) => type_graphql_1.ID),
     __metadata("design:type", Number)
 ], UpdatePostInput.prototype, "id", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    type_graphql_1.Field(),
     __metadata("design:type", String)
 ], UpdatePostInput.prototype, "title", void 0);
 __decorate([
-    (0, type_graphql_1.Field)(),
+    type_graphql_1.Field(),
     __metadata("design:type", String)
 ], UpdatePostInput.prototype, "text", void 0);
 UpdatePostInput = __decorate([
-    (0, type_graphql_1.InputType)()
+    type_graphql_1.InputType()
 ], UpdatePostInput);
 exports.UpdatePostInput = UpdatePostInput;
 //# sourceMappingURL=UpdatePostInput.js.map
