@@ -1,12 +1,12 @@
-import { Button } from '@chakra-ui/button';
-import { Box, Flex, Heading, Link } from '@chakra-ui/layout';
-import NextLink from 'next/link';
+import { Button } from "@chakra-ui/button";
+import { Box, Flex, Heading, Link } from "@chakra-ui/layout";
+import NextLink from "next/link";
 import {
   MeDocument,
   MeQuery,
   useLogoutMutation,
   useMeQuery,
-} from '../generated/graphql';
+} from "../generated/graphql";
 const Navbar = () => {
   const { data, loading: useMeQueryLoading } = useMeQuery();
   const [logout, { loading: useLogoutMutationLoading }] = useLogoutMutation();
@@ -38,9 +38,15 @@ const Navbar = () => {
     );
   } else {
     body = (
-      <Button onClick={logoutUser} isLoading={useLogoutMutationLoading}>
-        Logout
-      </Button>
+      <Flex>
+        <NextLink href="/create-post">
+          <Button mr={4}>Create Post</Button>
+        </NextLink>
+
+        <Button onClick={logoutUser} isLoading={useLogoutMutationLoading}>
+          Logout
+        </Button>
+      </Flex>
     );
   }
 

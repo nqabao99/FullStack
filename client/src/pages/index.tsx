@@ -1,21 +1,24 @@
 import { NetworkStatus } from "@apollo/client";
 import {
   Box,
+  Button,
   Flex,
   Heading,
   Link,
   Spinner,
   Stack,
   Text,
-  Button,
 } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
 import NextLink from "next/link";
 import Layout from "../components/Layout";
 import PostDeleteEditButon from "../components/PostDeleteEditButon";
-import { PostsDocument, usePostsQuery } from "../generated/graphql";
+import { PostsDocument, useMeQuery, usePostsQuery } from "../generated/graphql";
 import { addApolloState, initializeApollo } from "../lib/apolloClient.";
-const limit = 2;
+export const limit = 3;
 const Index = () => {
+  const { data: meData } = useMeQuery();
+
   const { data, loading, error, fetchMore, networkStatus } = usePostsQuery({
     variables: { limit },
     notifyOnNetworkStatusChange: true,
@@ -28,7 +31,7 @@ const Index = () => {
 
   return (
     <Layout>
-      {loading ? (
+      {loading && !loadingMorePost ? (
         <Flex justifyContent="center" alignItems="center" minH="100vh">
           <Spinner />
         </Flex>
@@ -46,7 +49,7 @@ const Index = () => {
                 <Flex align="center">
                   <Text>{post.textSnippet}</Text>
                   <Box ml="auto">
-                    <PostDeleteEditButon />
+                    {meData?.me?.id === post.user.id && <PostDeleteEditButon />}
                   </Box>
                 </Flex>
               </Box>
@@ -71,7 +74,7 @@ const Index = () => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({

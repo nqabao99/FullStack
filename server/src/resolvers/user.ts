@@ -1,6 +1,13 @@
-import { ChangePasswordInput } from "./../types/ChangePasswordInput";
 import argon2 from "argon2";
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import {
+  Arg,
+  Ctx,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from "type-graphql";
 import { v4 as uuidv4 } from "uuid";
 import { COOKIE_NAME } from "../constants";
 import { User } from "../entities/User";
@@ -12,9 +19,15 @@ import { RegisterInput } from "../types/RegisterInput";
 import { UserMutationResponse } from "../types/UserMutationResponse";
 import { sendEmail } from "../utils/sendEmail";
 import { validateRegisterInput } from "../utils/validateRegisterInput";
+import { ChangePasswordInput } from "./../types/ChangePasswordInput";
 
-@Resolver()
+@Resolver((_of) => User)
 export class UserResolver {
+  @FieldResolver((_return) => String)
+  email(@Root() user: User, @Ctx() { req }: Context) {
+    return req.session.userId === user.id ? user.email : "";
+  }
+
   @Query((_return) => User, { nullable: true })
   async me(@Ctx() { req }: Context): Promise<User | undefined | null> {
     if (!req.session.userId) return null;

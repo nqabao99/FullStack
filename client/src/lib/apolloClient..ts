@@ -30,9 +30,6 @@ function createApolloClient() {
             posts: {
               keyArgs: false,
               merge(existing, incoming) {
-                console.log("existing", existing);
-                console.log("incoming", incoming);
-
                 let paginatePosts: Post[] = [];
 
                 if (existing && existing.paginatePosts) {
