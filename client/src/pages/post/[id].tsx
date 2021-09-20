@@ -1,3 +1,4 @@
+import { EditIcon } from "@chakra-ui/icons";
 import {
   Alert,
   AlertIcon,
@@ -7,11 +8,13 @@ import {
   Flex,
   Heading,
   Spinner,
+  IconButton,
 } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import Layout from "../../components/Layout";
+import PostDeleteEditButon from "../../components/PostDeleteEditButon";
 import {
   PostDocument,
   PostIdsDocument,
@@ -30,6 +33,16 @@ const Post = () => {
     },
   });
 
+  if (loading) {
+    return (
+      <Layout>
+        <Flex justifyContent="center" alignItems="center" minH="100vh">
+          <Spinner />
+        </Flex>
+      </Layout>
+    );
+  }
+
   if (error || !data?.post)
     return (
       <Layout>
@@ -47,21 +60,17 @@ const Post = () => {
 
   return (
     <Layout>
-      {loading ? (
-        <Flex justifyContent="center" alignItems="center" minH="100vh">
-          <Spinner />
-        </Flex>
-      ) : (
-        <>
-          <Heading md={4}>{data.post.title}</Heading>
-          <Box md={4}>{data.post.text}</Box>
-          <Flex>
-            <NextLink href="/">
-              <Button>Back to home page</Button>
-            </NextLink>
-          </Flex>
-        </>
-      )}
+      <Heading md={4}>{data.post.title}</Heading>
+      <Box md={4}>{data.post.text}</Box>
+      <Flex justifyContent="space-between" alignItems="center">
+        <PostDeleteEditButon
+          postId={data.post.id}
+          postUserId={data.post.userId.toString()}
+        />
+        <NextLink href="/">
+          <Button>Back to home page</Button>
+        </NextLink>
+      </Flex>
     </Layout>
   );
 };
