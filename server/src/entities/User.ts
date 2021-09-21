@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Post } from "./Post";
+import { Upvote } from "./Unvote";
 
 @ObjectType() // nc từ typeSc cho graphql đến graphql
 // biến thành 1 cái table trong CSDL User => Name table
@@ -32,6 +33,13 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @OneToMany((_to) => Upvote, (upvote) => upvote.post)
+  upvotes: Upvote[];
+
+  @Field()
+  @Column({ default: 0 })
+  points!: number;
 
   @Field()
   @CreateDateColumn()

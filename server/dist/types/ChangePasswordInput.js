@@ -14,11 +14,11 @@ const type_graphql_1 = require("type-graphql");
 let ChangePasswordInput = class ChangePasswordInput {
 };
 __decorate([
-    type_graphql_1.Field(),
+    (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], ChangePasswordInput.prototype, "newPassword", void 0);
 ChangePasswordInput = __decorate([
-    type_graphql_1.InputType()
+    (0, type_graphql_1.InputType)()
 ], ChangePasswordInput);
 exports.ChangePasswordInput = ChangePasswordInput;
 //# sourceMappingURL=ChangePasswordInput.js.map

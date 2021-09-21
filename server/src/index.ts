@@ -11,6 +11,7 @@ import { buildSchema } from "type-graphql";
 import { createConnection } from "typeorm";
 import { COOKIE_NAME, __prod__ } from "./constants";
 import { Post } from "./entities/Post";
+import { Upvote } from "./entities/Unvote";
 import { User } from "./entities/User";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
@@ -20,12 +21,12 @@ import { Context } from "./types/Context";
 const main = async () => {
   await createConnection({
     type: "postgres",
-    database: "reddit",
+    database: "redditv3",
     username: process.env.DB_USERNAME_DEV,
     password: process.env.DB_PASSWORD_DEV,
     logging: true,
     synchronize: true,
-    entities: [User, Post],
+    entities: [User, Post, Upvote],
   });
 
   // await sendEmail("nguyenquanganhbao148@gmail.com", "<b>Hello bao</b>");

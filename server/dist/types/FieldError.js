@@ -14,15 +14,15 @@ const type_graphql_1 = require("type-graphql");
 let FieldError = class FieldError {
 };
 __decorate([
-    type_graphql_1.Field(),
+    (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], FieldError.prototype, "field", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], FieldError.prototype, "message", void 0);
 FieldError = __decorate([
-    type_graphql_1.ObjectType()
+    (0, type_graphql_1.ObjectType)()
 ], FieldError);
 exports.FieldError = FieldError;
 //# sourceMappingURL=FieldError.js.map

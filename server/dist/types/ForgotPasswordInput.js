@@ -14,11 +14,11 @@ const type_graphql_1 = require("type-graphql");
 let ForgotPasswordInput = class ForgotPasswordInput {
 };
 __decorate([
-    type_graphql_1.Field(),
+    (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], ForgotPasswordInput.prototype, "email", void 0);
 ForgotPasswordInput = __decorate([
-    type_graphql_1.InputType()
+    (0, type_graphql_1.InputType)()
 ], ForgotPasswordInput);
 exports.ForgotPasswordInput = ForgotPasswordInput;
 //# sourceMappingURL=ForgotPasswordInput.js.map

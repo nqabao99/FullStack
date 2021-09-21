@@ -14,15 +14,15 @@ const type_graphql_1 = require("type-graphql");
 let LoginInput = class LoginInput {
 };
 __decorate([
-    type_graphql_1.Field(),
+    (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], LoginInput.prototype, "usernameOrEmail", void 0);
 __decorate([
-    type_graphql_1.Field(),
+    (0, type_graphql_1.Field)(),
     __metadata("design:type", String)
 ], LoginInput.prototype, "password", void 0);
 LoginInput = __decorate([
-    type_graphql_1.InputType()
+    (0, type_graphql_1.InputType)()
 ], LoginInput);
 exports.LoginInput = LoginInput;
 //# sourceMappingURL=LoginInput.js.map
